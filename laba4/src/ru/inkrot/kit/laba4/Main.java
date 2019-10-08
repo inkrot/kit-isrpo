@@ -8,5 +8,6 @@ public class Main {
         UIManager.setLookAndFeel(
                 UIManager.getSystemLookAndFeelClassName());
         new ControlFrame();
+        //new DemoFrame();
     }
 }

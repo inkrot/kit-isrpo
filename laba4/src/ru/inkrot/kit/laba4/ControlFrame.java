@@ -39,12 +39,12 @@ public class ControlFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultLookAndFeelDecorated(false);
         setLayout(null);
-        //setResizable(false);
+        setResizable(false);
         createUI();
         setVisible(true);
         repaint();
 
-        colorChooseDialog = new RGBColorChooserPanel("Выберите цвет", e -> {
+        colorChooseDialog = new ColorChooserPanel("Выберите цвет", e -> {
             textColor = (Color) e.getSource();
             textColorButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, textColor));
             colorChooseDialog.setVisible(false);
@@ -98,7 +98,7 @@ public class ControlFrame extends JFrame {
         textColorButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, textColor));
         textColorButton.addActionListener(v -> colorChooseDialog.setVisible(true));
 
-        runPanel.add(newLabel("Начальная скорость"));
+        runPanel.add(newLabel("Нач. корость (1-5)"));
         runPanel.add(textValueField = newTextField());
 
         add(runButton = newButton("Пуск"));
