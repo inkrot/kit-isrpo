@@ -1,22 +1,13 @@
 package ru.inkrot.kit.laba4;
 
-import com.sun.webkit.ColorChooser;
-
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
-import javax.swing.colorchooser.AbstractColorChooserPanel;
 
 public class ControlFrame extends JFrame {
 
