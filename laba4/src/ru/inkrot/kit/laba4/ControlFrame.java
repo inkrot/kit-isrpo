@@ -13,8 +13,8 @@ public class ControlFrame extends JFrame {
 
     // constants
     private Font font = new Font("Arial", 0, 14);
-    private int WIDTH = 350;
-    private int HEIGHT = 400;
+    private int WIDTH = 355;
+    private int HEIGHT = 455;
 
     // ui
     private JComboBox typeCombo;
@@ -27,12 +27,13 @@ public class ControlFrame extends JFrame {
     private JLabel foundObjectLabel;
     private JTextField newIdField;
     private JComboBox speedCombo;
+    private JButton editButton;
 
     // control
     private Color textColor = new Color(0 ,0 ,0);
 
     public ControlFrame() {
-        setTitle("Управляющее окно");
+        setTitle("УО");
         setSize(WIDTH, HEIGHT);
         addWindowListener(new WindowListener());
         setLocationRelativeTo(null);
@@ -78,7 +79,6 @@ public class ControlFrame extends JFrame {
     }
 
     private void createUI() {
-
         JPanel runPanel = new JPanel();
         runPanel.setBounds(10, 10, WIDTH - 35, 170);
         runPanel.setLayout(new GridLayout(5, 2, 0, 5));
@@ -104,24 +104,29 @@ public class ControlFrame extends JFrame {
         add(runButton = newButton("Пуск"));
         runButton.setBounds(10, runPanel.getHeight() + runPanel.getX() + 10, WIDTH - 35, 30);
 
-
         JPanel findPanel = new JPanel();
-        findPanel.setBounds(10, runPanel.getHeight() + runPanel.getX() + 50, WIDTH - 35, 70);
-        findPanel.setLayout(new GridLayout(2, 2, 0, 5));
+        findPanel.setBounds(10, runPanel.getHeight() + runPanel.getX() + 50, WIDTH - 35, 100);
+        findPanel.setLayout(new GridLayout(3, 2, 0, 5));
         add(findPanel);
 
         findPanel.add(newLabel("Найти ФиО"));
         findPanel.add(findIdField = newTextField());
 
-        add(foundObjectLabel = new JLabel("ФиО не найден", SwingConstants.RIGHT));
-        foundObjectLabel.setFont(new Font("Arial", 1, 14));
-        foundObjectLabel.setBounds(10, runPanel.getHeight() + runPanel.getX() + 85, WIDTH - 35, 20);
-
         findPanel.add(newLabel("Новый id"));
         findPanel.add(newIdField = newTextField());
-        //newIdField.setBounds(10, runPanel.getHeight() + runPanel.getX() + 110, WIDTH - 35, 20);
+        newIdField.setEnabled(false);
 
+        findPanel.add(newLabel("Скорость ФиО"));
+        findPanel.add(speedCombo = newCombo(new String[]{"1", "2", "3", "4", "5"}));
+        speedCombo.setEnabled(false);
 
-        //newCombo(new String[]{"1", "2", "3", "4", "5"})
+        // when found: ФиО {id} выбран
+        add(foundObjectLabel = new JLabel("ФиО не найден", SwingConstants.RIGHT));
+        foundObjectLabel.setFont(new Font("Arial", 1, 14));
+        foundObjectLabel.setBounds(10, runPanel.getHeight() + runPanel.getX() + 150, WIDTH - 35, 30);
+
+        add(editButton = newButton("Изменить"));
+        editButton.setEnabled(false);
+        editButton.setBounds(10, runPanel.getHeight() + runPanel.getX() + 180, WIDTH - 35, 30);
     }
 }
