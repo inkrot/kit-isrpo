@@ -1,0 +1,136 @@
+package ru.inkrot.kit.laba4;
+
+import com.sun.webkit.ColorChooser;
+
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
+
+public class ControlFrame extends JFrame {
+
+    // constants
+    private Font font = new Font("Arial", 0, 14);
+    private int WIDTH = 350;
+    private int HEIGHT = 400;
+
+    // ui
+    private JComboBox typeCombo;
+    private JButton chooseImageButton;
+    private JTextField textValueField;
+    private JButton textColorButton;
+    private JDialog colorChooseDialog;
+    private JButton runButton;
+    private JTextField findIdField;
+    private JLabel foundObjectLabel;
+    private JTextField newIdField;
+    private JComboBox speedCombo;
+
+    // control
+    private Color textColor = new Color(0 ,0 ,0);
+
+    public ControlFrame() {
+        setTitle("Управляющее окно");
+        setSize(WIDTH, HEIGHT);
+        addWindowListener(new WindowListener());
+        setLocationRelativeTo(null);
+        setDefaultLookAndFeelDecorated(false);
+        setLayout(null);
+        //setResizable(false);
+        createUI();
+        setVisible(true);
+        repaint();
+
+        colorChooseDialog = new RGBColorChooserPanel("Выберите цвет", e -> {
+            textColor = (Color) e.getSource();
+            textColorButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, textColor));
+            colorChooseDialog.setVisible(false);
+        });
+        colorChooseDialog.setSize(570,290);
+        colorChooseDialog.setLocationRelativeTo(null);
+        colorChooseDialog.setVisible(false);
+    }
+
+    private JLabel newLabel(String title) {
+        JLabel label = new JLabel(title);
+        label.setFont(font);
+        return label;
+    }
+
+    private JButton newButton(String title) {
+        JButton button = new JButton(title);
+        button.setFont(font);
+        return button;
+    }
+
+    private JComboBox newCombo(String [] data) {
+        JComboBox comboBox = new JComboBox(data);
+        comboBox.setFont(font);
+        return comboBox;
+    }
+
+    private JTextField newTextField() {
+        JTextField textField = new JTextField();
+        textField.setFont(font);
+        return textField;
+    }
+
+    private void createUI() {
+
+        JPanel runPanel = new JPanel();
+        runPanel.setBounds(10, 10, WIDTH - 35, 170);
+        runPanel.setLayout(new GridLayout(5, 2, 0, 5));
+        add(runPanel);
+
+        runPanel.add(newLabel("ФиО"));
+        runPanel.add(typeCombo = newCombo(new String[]{"Картинка", "Надпись"}));
+
+        runPanel.add(newLabel("Путь к картинке"));
+        runPanel.add(chooseImageButton = newButton("Выбрать"));
+
+        runPanel.add(newLabel("Надпись"));
+        runPanel.add(textValueField = newTextField());
+
+        runPanel.add(newLabel("Цвет надписи"));
+        runPanel.add(textColorButton = newButton("Выбрать"));
+        textColorButton.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, textColor));
+        textColorButton.addActionListener(v -> colorChooseDialog.setVisible(true));
+
+        runPanel.add(newLabel("Начальная скорость"));
+        runPanel.add(textValueField = newTextField());
+
+        add(runButton = newButton("Пуск"));
+        runButton.setBounds(10, runPanel.getHeight() + runPanel.getX() + 10, WIDTH - 35, 30);
+
+
+        JPanel findPanel = new JPanel();
+        findPanel.setBounds(10, runPanel.getHeight() + runPanel.getX() + 50, WIDTH - 35, 70);
+        findPanel.setLayout(new GridLayout(2, 2, 0, 5));
+        add(findPanel);
+
+        findPanel.add(newLabel("Найти ФиО"));
+        findPanel.add(findIdField = newTextField());
+
+        add(foundObjectLabel = new JLabel("ФиО не найден", SwingConstants.RIGHT));
+        foundObjectLabel.setFont(new Font("Arial", 1, 14));
+        foundObjectLabel.setBounds(10, runPanel.getHeight() + runPanel.getX() + 85, WIDTH - 35, 20);
+
+        findPanel.add(newLabel("Новый id"));
+        findPanel.add(newIdField = newTextField());
+        //newIdField.setBounds(10, runPanel.getHeight() + runPanel.getX() + 110, WIDTH - 35, 20);
+
+
+        //newCombo(new String[]{"1", "2", "3", "4", "5"})
+    }
+}
