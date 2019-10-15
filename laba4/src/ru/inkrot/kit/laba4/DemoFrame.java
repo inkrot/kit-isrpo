@@ -68,7 +68,6 @@ public class DemoFrame extends JFrame {
     class DemoPanel extends JPanel {
 
         private Color backgroundColor = new Color(111, 253, 255);
-        private Color idTextColor = new Color(31, 89, 255);
 
         private Font idTextFont = new Font("Tahoma", 0, 20);
 
@@ -92,10 +91,7 @@ public class DemoFrame extends JFrame {
                     g2d.drawString(obj.getText(), x, y);
                 }
                 Dimension d = obj.getDimension();
-                //g2d.setColor(idTextColor);
-                //g2d.setFont(idTextFont);
                 String text = "[ id: " + obj.getId() + " ]";
-                //g2d.drawString(text, x + (int)d.getWidth() + 4, y + (int)d.getHeight());
 
                 TextLayout textLayout = new TextLayout(text, idTextFont, g2d.getFontRenderContext());
                 g2d.setPaint(Color.BLACK);
@@ -105,7 +101,7 @@ public class DemoFrame extends JFrame {
                 textLayout.draw(g2d, x + (int)d.getWidth() - 1, y + (int)d.getHeight() + 1);
                 textLayout.draw(g2d, x + (int)d.getWidth() + 1, y + (int)d.getHeight() - 1);
 
-                g2d.setPaint(Color.RED);
+                g2d.setPaint(Color.WHITE);
                 textLayout.draw(g2d, x + (int)d.getWidth(), y + (int)d.getHeight());
             }
         }

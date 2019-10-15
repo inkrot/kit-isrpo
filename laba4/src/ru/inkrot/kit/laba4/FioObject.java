@@ -32,6 +32,13 @@ public class FioObject {
         addObject(new FioObject(image, speed));
     }
 
+    public static boolean isFreeId(int id) {
+        for (FioObject obj : allObjects) {
+            if (obj.getId() == id) return false;
+        }
+        return true;
+    }
+
     private FioType type;
 
     private int id;
@@ -82,13 +89,6 @@ public class FioObject {
             firstFreeId++;
         }
         id = firstFreeId;
-    }
-
-    private boolean isFreeId(int id) {
-        for (FioObject obj : allObjects) {
-            if (obj.getId() == id) return false;
-        }
-        return true;
     }
 
     public void nextStep(int width, int height) {
@@ -173,8 +173,18 @@ public class FioObject {
         return id;
     }
 
-    public void setId(int id) {
+    /**
+     *
+     * @param id new identifier of object
+     * @return error code or 0 - success,
+     * codes: 1 - id is bussy;
+     *        2 - id within wrong rangle (allowed: 1 - 5)
+     */
+    public int setId(int id) {
+        if (! isFreeId(id)) return 1;
+        if (! (id >= 1 && id <= MAX_NUMBER_OF_OBJECTS)) return 2;
         this.id = id;
+        return 0;
     }
 
     public FioType getType() {

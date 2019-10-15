@@ -30,7 +30,7 @@ public class ControlFrame extends JFrame {
     // constants
     private Font font = new Font("Arial", 0, 14);
     public static int WIDTH = 345;
-    public static int HEIGHT = 435;
+    public static int HEIGHT = 445;
 
     // ui
     private JComboBox typeCombo;
@@ -45,6 +45,7 @@ public class ControlFrame extends JFrame {
     private JTextField newIdField;
     private JComboBox speedCombo;
     private JButton editButton;
+    private KeyListener numbersKeyListener;
 
     // control
     private FioType selectedType = FioType.PICTURE;
@@ -57,15 +58,13 @@ public class ControlFrame extends JFrame {
         int x = (Main.SCREEN_WIDTH / 2) - (WIDTH + DemoFrame.WIDTH) / 2;
         int y = (Main.SCREEN_HEIGHT / 2) - DemoFrame.WIDTH / 2;
         setLocation(x, y);
-        //setUndecorated(true);
         setSize(WIDTH, HEIGHT);
         addWindowListener(new WindowListener());
         setDefaultLookAndFeelDecorated(false);
         setLayout(null);
         setResizable(false);
+        initListeners();
         createUI();
-        setVisible(true);
-        repaint();
 
         colorChooseDialog = new ColorChooserPanel("Выберите цвет", e -> {
             textColor = (Color) e.getSource();
@@ -77,6 +76,29 @@ public class ControlFrame extends JFrame {
         colorChooseDialog.setVisible(false);
 
         new DemoFrame(this);
+        setVisible(true);
+        repaint();
+    }
+
+    private void initListeners() {
+        numbersKeyListener = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                JTextField field = (JTextField) e.getSource();
+                char c = e.getKeyChar();
+                if (! isNumber(c)) e.consume();
+                if (field.equals(startSpeedField) && (! (c >= '1' && c <= '5') || field.getText().length() > 0)) e.consume();
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {
+                JTextField field = (JTextField) e.getSource();
+                if (field.equals(findIdField)) findId();
+            }
+        };
     }
 
     private JLabel newLabel(String title) {
@@ -132,6 +154,8 @@ public class ControlFrame extends JFrame {
 
         runPanel.add(newLabel("Нач. скорость (1-5)"));
         runPanel.add(startSpeedField = newTextField("1"));
+        startSpeedField.setTransferHandler(null);
+        startSpeedField.addKeyListener(numbersKeyListener);
 
         add(runButton = newButton("Пуск"));
         runButton.setBounds(10, runPanel.getY() + runPanel.getHeight() + 10, w, 30);
@@ -146,39 +170,49 @@ public class ControlFrame extends JFrame {
 
         findPanel.add(findIdField = newTextField(""));
         findIdField.setTransferHandler(null);
-        findIdField.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (! isNumber(e.getKeyChar())) e.consume();
-            }
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-            @Override
-            public void keyReleased(KeyEvent e) {
-                findId();
-            }
-        });
+        findIdField.addKeyListener(numbersKeyListener);
 
         findPanel.add(newLabel("Новый id"));
         findPanel.add(newIdField = newTextField(""));
-        newIdField.setEnabled(false);
+        newIdField.setTransferHandler(null);
+        newIdField.addKeyListener(numbersKeyListener);
 
         findPanel.add(newLabel("Скорость ФиО"));
         findPanel.add(speedCombo = newCombo(new String[]{"1", "2", "3", "4", "5"}));
-        speedCombo.setEnabled(false);
 
         add(foundObjectLabel = new JLabel("ФиО не найден", SwingConstants.RIGHT));
         foundObjectLabel.setFont(new Font("Arial", 1, 14));
         foundObjectLabel.setBounds(10, findPanel.getY() + findPanel.getHeight(), w, 30);
-        foundObjectLabel.setEnabled(false);
 
         add(editButton = newButton("Изменить"));
         editButton.setBounds(10, findPanel.getY() + findPanel.getHeight() + 25, w, 30);
-        editButton.setEnabled(false);
+        editButton.addActionListener(e -> editFio());
 
         setFioType("Картинка");
+        searchFailed();
+    }
+
+    private void editFio() {
+        if (selectedFio == null) return;
+        String newIdStr = newIdField.getText();
+        String newSpeedStr = speedCombo.getSelectedItem().toString();
+        try {
+            int newSpeed = Integer.parseInt(newSpeedStr);
+            selectedFio.setSpeed(newSpeed);
+            if (newIdStr.length() > 0) {
+                int newId = Integer.parseInt(newIdStr);
+                int result = selectedFio.setId(newId);
+                if (result == 1)
+                    showMessageBox("Ошибка", "Идентификатор занят", JOptionPane.ERROR_MESSAGE);
+                else if (result == 2)
+                    showMessageBox("Ошибка", "Идентификатор должен быть в дипазоне от 1 до " + FioObject.MAX_NUMBER_OF_OBJECTS, JOptionPane.ERROR_MESSAGE);
+            }
+            findId();
+        } catch (Exception e) {}
+    }
+
+    private void showMessageBox(String title, String message, int type) {
+        JOptionPane.showMessageDialog(null, message, title, type);
     }
 
     private boolean isNumber(char ch){
@@ -186,6 +220,7 @@ public class ControlFrame extends JFrame {
     }
 
     private void findId() {
+        selectedFio = null;
         if (findIdField.getText().length() < 1) {
             searchFailed();
             return;
@@ -209,6 +244,7 @@ public class ControlFrame extends JFrame {
 
     private void searchSuccessful() {
         foundObjectLabel.setText("ФиО " + selectedFio.getId() + " выбран");
+        speedCombo.setSelectedItem(String.valueOf(selectedFio.getSpeed()));
         newIdField.setEnabled(true);
         speedCombo.setEnabled(true);
         foundObjectLabel.setEnabled(true);
@@ -217,6 +253,8 @@ public class ControlFrame extends JFrame {
 
     private void searchFailed() {
         foundObjectLabel.setText("ФиО не найден");
+        speedCombo.setSelectedIndex(0);
+        newIdField.setText("");
         newIdField.setEnabled(false);
         speedCombo.setEnabled(false);
         foundObjectLabel.setEnabled(false);
