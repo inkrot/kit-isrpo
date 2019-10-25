@@ -23,6 +23,7 @@ public class Main extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(null);
         initUI();
+        initListeners();
         setVisible(true);
         repaint();
     }
@@ -53,6 +54,10 @@ public class Main extends JFrame {
         chartsPanel = new ChartsPanel();
         chartsPanel.setBounds(10, 10, getWidth() - 10, getHeight() - 10);
         add(chartsPanel);
+    }
+
+    private void initListeners() {
+
     }
 
     private JLabel newLabel(String text) {
@@ -89,9 +94,14 @@ public class Main extends JFrame {
 
         int rangeMin = -15;
         int rangeMax = 15;
+        int sc = 10;
 
         ChartsPanel() {
-
+            addMouseWheelListener(e -> {
+                if (e.getWheelRotation() < 0) sc += 3;
+                else sc -= 3;
+                Main.this.repaint();
+            });
         }
 
         private int map(int value, int valueRangeMin, int valueRangeMax) {
@@ -104,11 +114,11 @@ public class Main extends JFrame {
         }
 
         private int rX(double xCoord) {
-            return (int) (getWidth() / 2 + xCoord);
+            return (int) (getWidth() / 2 + xCoord * sc);
         }
 
         private int rY(double yCoord) {
-            return (int) (getHeight() / 2 + yCoord);
+            return (int) (getHeight() / 2 + yCoord * sc);
         }
 
         @Override
@@ -118,22 +128,24 @@ public class Main extends JFrame {
             g.setColor(Color.LIGHT_GRAY);
             g.fillRect(0, 0, w, h);
 
-            g.setColor(Color.BLUE);
+            g.setColor(Color.GRAY);
             ((Graphics2D) g).setStroke(new BasicStroke(1));
             g.drawLine(w / 2, 40, w / 2, h - 40);
             g.drawLine(40, h / 2, w - 40, h / 2);
 
-            g.setColor(Color.RED);
-            ((Graphics2D) g).setStroke(new BasicStroke(1));
-            double xStart = -100, xEnd = 100, dx = 0.3;
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+            g.setColor(Color.BLUE);
+            g2.setStroke(new BasicStroke(1));
             int rMaxX = w / 2, rMaxY = h / 2;
-            System.out.println(rMaxX - 80);
+            double xStart = -50, xEnd = 50, dx = ((xEnd - xStart) / rMaxX);
             for (double x = xStart + dx; x <= xEnd; x += dx) {
-                g.drawLine(
-                        map(rX(x - dx), 0, rMaxX),
-                        map(rY(Math.atan(x - dx)), 0, rMaxY),
-                        map(rX(x), 0, rMaxX),
-                        map(rY(Math.atan(x)), 0, rMaxY)
+                g.drawLine(rX(x - dx),
+                        rY(-Math.atan(x - dx)),
+                        rX(x),
+                        rY(-Math.atan(x))
                 );
             }
         }
