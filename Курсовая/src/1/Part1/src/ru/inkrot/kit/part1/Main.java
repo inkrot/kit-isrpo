@@ -7,7 +7,7 @@ import java.awt.*;
 public class Main extends JFrame {
 
     private JPanel valuesPanel;
-    private JTextField xStartField, xEndField, nField;
+    private JTextField xStartField, xEndField, nField, bField;
     private JButton apply;
     private ChartsPanel chartsPanel;
 
@@ -30,10 +30,10 @@ public class Main extends JFrame {
 
     private void initUI() {
         valuesPanel = new JPanel();
-        valuesPanel.setLayout(new GridLayout(4,2, 3, 3));
+        valuesPanel.setLayout(new GridLayout(5,2, 3, 3));
         valuesPanel.setBackground(Color.GRAY);
         valuesPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        valuesPanel.setBounds(11, 11, 250, 130);
+        valuesPanel.setBounds(11, 11, 250, 170);
         add(valuesPanel);
 
         valuesPanel.add(newLabel("X_нач:"));
@@ -45,6 +45,9 @@ public class Main extends JFrame {
         valuesPanel.add(newLabel("n_max:"));
         valuesPanel.add(xEndField = newField());
 
+        valuesPanel.add(newLabel("b:"));
+        valuesPanel.add(bField = newField());
+
         valuesPanel.add(newEmptyComponent());
 
         valuesPanel.add(apply = new JButton("Применить"));
@@ -52,7 +55,7 @@ public class Main extends JFrame {
         apply.setFocusPainted(false);
 
         chartsPanel = new ChartsPanel();
-        chartsPanel.setBounds(10, 10, getWidth() - 10, getHeight() - 10);
+        chartsPanel.setBounds(0, 0, getWidth(), getHeight());
         add(chartsPanel);
     }
 
@@ -82,7 +85,7 @@ public class Main extends JFrame {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        chartsPanel.setSize(Main.this.getWidth() - 35, Main.this.getHeight() - 58);
+        chartsPanel.setSize(Main.this.getWidth() - 22, Main.this.getHeight() - 56);
     }
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
@@ -92,25 +95,18 @@ public class Main extends JFrame {
 
     class ChartsPanel extends JPanel {
 
-        int rangeMin = -15;
-        int rangeMax = 15;
-        int sc = 10;
+        int xStart = -15;
+        int xEnd = 15;
+        int nMax = 100;
+        int b = 1;
+        int sc = 100;
 
         ChartsPanel() {
             addMouseWheelListener(e -> {
                 if (e.getWheelRotation() < 0) sc += 3;
-                else sc -= 3;
+                else sc -= sc > 1 ? 3 : 0;
                 Main.this.repaint();
             });
-        }
-
-        private int map(int value, int valueRangeMin, int valueRangeMax) {
-            double fromRange = valueRangeMax - valueRangeMin;
-            double toRange = rangeMax - rangeMin;
-            double scaleFactor = toRange / fromRange;
-            double tmpValue = value - valueRangeMin;
-            tmpValue *= scaleFactor;
-            return (int) (tmpValue + rangeMin);
         }
 
         private int rX(double xCoord) {
@@ -118,14 +114,28 @@ public class Main extends JFrame {
         }
 
         private int rY(double yCoord) {
-            return (int) (getHeight() / 2 + yCoord * sc);
+            return (int) (getHeight() / 2 - yCoord * sc);
+        }
+
+        private double y(double x) {
+            if (x > 1) {
+                double y = Math.PI;
+                for (int n = 0; n < nMax; n++) {
+                    y += Math.pow(-1, n + 1) / ((2 * n + 1) * Math.pow(x, 2 * n + 1));
+                }
+                return y;
+            } else throw new IllegalArgumentException("x must be more than 1");
+        }
+
+        private double z(double x) {
+            return Math.atan(x) + (double) b;
         }
 
         @Override
         public void paint(Graphics g) {
             int w = getWidth(), h = getHeight();
 
-            g.setColor(Color.LIGHT_GRAY);
+            g.setColor(Color.BLACK);
             g.fillRect(0, 0, w, h);
 
             g.setColor(Color.GRAY);
@@ -137,15 +147,24 @@ public class Main extends JFrame {
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-            g.setColor(Color.BLUE);
-            g2.setStroke(new BasicStroke(1));
+            g2.setStroke(new BasicStroke(2));
             int rMaxX = w / 2, rMaxY = h / 2;
-            double xStart = -50, xEnd = 50, dx = ((xEnd - xStart) / rMaxX);
+            double dx = ((xEnd - xStart) / (double) rMaxX);
             for (double x = xStart + dx; x <= xEnd; x += dx) {
+                if (x - dx > 1) {
+                    g.setColor(Color.YELLOW);
+                    g.drawLine(rX(x - dx),
+                            rY(y(x - dx)),
+                            rX(x),
+                            rY(y(x))
+                    );
+                }
+
+                g.setColor(Color.BLUE);
                 g.drawLine(rX(x - dx),
-                        rY(-Math.atan(x - dx)),
+                        rY(z(x - dx)),
                         rX(x),
-                        rY(-Math.atan(x))
+                        rY(z(x))
                 );
             }
         }
