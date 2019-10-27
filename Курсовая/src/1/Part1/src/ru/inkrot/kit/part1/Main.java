@@ -2,12 +2,19 @@ package ru.inkrot.kit.part1;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.text.NumberFormat;
 
 public class Main extends JFrame {
 
     private JPanel valuesPanel;
-    private JTextField xStartField, xEndField, nField, bField;
+    private JTextField xStartField, xEndField, nMaxField, bField;
     private JButton apply;
     private ChartsPanel chartsPanel;
 
@@ -23,7 +30,6 @@ public class Main extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(null);
         initUI();
-        initListeners();
         setVisible(true);
         repaint();
     }
@@ -43,7 +49,7 @@ public class Main extends JFrame {
         valuesPanel.add(xEndField = newField());
 
         valuesPanel.add(newLabel("n_max:"));
-        valuesPanel.add(xEndField = newField());
+        valuesPanel.add(nMaxField = newField());
 
         valuesPanel.add(newLabel("b:"));
         valuesPanel.add(bField = newField());
@@ -53,14 +59,15 @@ public class Main extends JFrame {
         valuesPanel.add(apply = new JButton("Применить"));
         apply.setFont(font);
         apply.setFocusPainted(false);
+        apply.addActionListener(e -> applyValues());
 
         chartsPanel = new ChartsPanel();
         chartsPanel.setBounds(0, 0, getWidth(), getHeight());
+        xStartField.setText(String.valueOf(chartsPanel.xStart));
+        xEndField.setText(String.valueOf(chartsPanel.xEnd));
+        nMaxField.setText(String.valueOf(chartsPanel.nMax));
+        bField.setText(String.valueOf(chartsPanel.b));
         add(chartsPanel);
-    }
-
-    private void initListeners() {
-
     }
 
     private JLabel newLabel(String text) {
@@ -70,8 +77,8 @@ public class Main extends JFrame {
         return label;
     }
 
-    private JTextField newField() {
-        JTextField field = new JTextField();
+    private JFormattedTextField newField() {
+        JFormattedTextField field = new JFormattedTextField(NumberFormat.getIntegerInstance());
         field.setFont(font);
         return field;
     }
@@ -80,6 +87,25 @@ public class Main extends JFrame {
         JComponent component = new JButton();
         component.setVisible(false);
         return component;
+    }
+
+    private int getValue(JTextField field) {
+        return Integer.parseInt(field.getText());
+    }
+
+    private void applyValues() {
+        int xStart, xEnd, nMax, b;
+        try {
+            xStart = getValue(xStartField);
+            xEnd = getValue(xEndField);
+            nMax = getValue(nMaxField);
+            b = getValue(bField);
+            chartsPanel.xStart = xStart;
+            chartsPanel.xEnd = xEnd;
+            chartsPanel.nMax = nMax;
+            chartsPanel.b = b;
+            repaint();
+        } catch (Exception e) { }
     }
 
     @Override
@@ -95,8 +121,8 @@ public class Main extends JFrame {
 
     class ChartsPanel extends JPanel {
 
-        int xStart = -15;
-        int xEnd = 15;
+        int xStart = -8;
+        int xEnd = 8;
         int nMax = 100;
         int b = 1;
         int sc = 100;
@@ -135,7 +161,7 @@ public class Main extends JFrame {
         public void paint(Graphics g) {
             int w = getWidth(), h = getHeight();
 
-            g.setColor(Color.BLACK);
+            g.setColor(Color.LIGHT_GRAY);
             g.fillRect(0, 0, w, h);
 
             g.setColor(Color.GRAY);
@@ -148,7 +174,7 @@ public class Main extends JFrame {
             g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
             g2.setStroke(new BasicStroke(2));
-            int rMaxX = w / 2, rMaxY = h / 2;
+            int rMaxX = w / 2;
             double dx = ((xEnd - xStart) / (double) rMaxX);
             for (double x = xStart + dx; x <= xEnd; x += dx) {
                 if (x - dx > 1) {
