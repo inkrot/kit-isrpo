@@ -6,14 +6,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="799.0" style="-fx-background-color: #d3e7ff;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.Label?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="617.0" prefWidth="799.0"
+            style="-fx-background-color: #d3e7ff;"
+            fx:controller="ru.inkrot.kit.part3.controller.Controller">
    <children>
-      <TableView layoutX="11.0" layoutY="16.0" prefHeight="533.0" prefWidth="775.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="№ заказа" />
-          <TableColumn prefWidth="144.0" text="Клиент" />
-            <TableColumn prefWidth="161.0" text="Цена (руб)" />
-        </columns>
+      <TableView layoutX="11.0" layoutY="15.0" prefHeight="534.0" prefWidth="1000.0">
+          <placeholder>
+              <Label text="Нет заказов">
+                  <font>
+                      <Font size="20.0" />
+                  </font>
+              </Label>
+          </placeholder>
+          <columns>
+              <TableColumn prefWidth="100.0" text="№ заказа" />
+              <TableColumn prefWidth="300.0" text="Клиент" />
+              <TableColumn prefWidth="161.0" text="Номер тел." />
+              <TableColumn prefWidth="161.0" text="Цена (руб)" />
+              <TableColumn prefWidth="161.0" text="Дата" />
+          </columns>
       </TableView>
       <Button fx:id="addLibrarianButton" layoutX="625.0" layoutY="563.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="160.0" style="-fx-background-color: #5cb46f;" text="+ Добавить заказ">
          <font>
