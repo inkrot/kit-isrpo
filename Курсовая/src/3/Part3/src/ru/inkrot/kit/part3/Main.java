@@ -17,7 +17,7 @@ public class Main extends Application {
             //DataBase.connect();
             Parent root = FXMLLoader.load(getClass().getResource("view/main.fxml"));
             stage.setTitle("Салон продажи сотовых телефонов");
-            stage.setScene(new Scene(root, 600, 400));
+            stage.setScene(new Scene(root, 790, 600));
             stage.setResizable(false);
             stage.show();
         } catch (Exception e) {

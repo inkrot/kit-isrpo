@@ -1,34 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" prefHeight="474.0" prefWidth="615.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.inkrot.kit.part3.controller.Controller">
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="799.0" style="-fx-background-color: #d3e7ff;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TabPane prefHeight="336.0" prefWidth="375.0" tabClosingPolicy="UNAVAILABLE" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-        <tabs>
-          <Tab text="Заказы">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="340.0" prefWidth="375.0" />
-            </content>
-          </Tab>
-          <Tab text="Товары">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
+      <TableView layoutX="11.0" layoutY="16.0" prefHeight="533.0" prefWidth="775.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="№ заказа" />
+          <TableColumn prefWidth="144.0" text="Клиент" />
+            <TableColumn prefWidth="161.0" text="Цена (руб)" />
+        </columns>
+      </TableView>
+      <Button fx:id="addLibrarianButton" layoutX="625.0" layoutY="563.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="160.0" style="-fx-background-color: #5cb46f;" text="+ Добавить заказ">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
    </children>
-</GridPane>
+</AnchorPane>
