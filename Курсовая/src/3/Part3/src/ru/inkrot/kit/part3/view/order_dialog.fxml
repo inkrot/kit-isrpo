@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane focusTraversable="true" prefHeight="431.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.inkrot.kit.part3.controller.OrderController">
+   <Label fx:id="orderDialogLabel" layoutX="55.0" layoutY="26.0" prefHeight="31.0" prefWidth="246.0"
+          text="Добавление заказа">
+      <font>
+         <Font size="27.0" />
+      </font>
+   </Label>
+   <TextField fx:id="customerField" focusTraversable="false" layoutX="28.0" layoutY="84.0" prefHeight="31.0" prefWidth="307.0" promptText="Клиент">
+      <font>
+         <Font size="15.0" />
+      </font>
+   </TextField>
+   <TextField fx:id="customerTelField" focusTraversable="false" layoutX="28.0" layoutY="123.0" prefHeight="31.0" prefWidth="307.0" promptText="Номер телефона">
+      <font>
+         <Font size="15.0" />
+      </font>
+   </TextField>
+   <AnchorPane layoutX="27.0" layoutY="166.0" prefHeight="162.0" prefWidth="307.0" style="-fx-border-style: solid; -fx-border-width: 1px; -fx-border-color: black; -fx-background-color: #eff0ff;">
+      <children>
+         <Label fx:id="phonesListLabel" layoutX="10.0" layoutY="4.0" prefHeight="21.0" prefWidth="152.0"
+                text="Товары не выбраны">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <ListView fx:id="phonesList" focusTraversable="false" layoutX="2.0" layoutY="28.0" prefHeight="177.0" prefWidth="307.0" />
+      </children>
+   </AnchorPane>
+   <Button fx:id="addOrderButton" focusTraversable="false" layoutX="252.0" layoutY="386.0" mnemonicParsing="false" text="Добавить">
+      <font>
+         <Font size="15.0" />
+      </font>
+   </Button>
+</AnchorPane>
