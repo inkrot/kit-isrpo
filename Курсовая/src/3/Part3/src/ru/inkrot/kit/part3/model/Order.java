@@ -6,7 +6,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Order extends DataBaseEntity {
 
@@ -42,24 +41,12 @@ public class Order extends DataBaseEntity {
         return customer;
     }
 
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
-
     public String getCustomerTel() {
         return customerTel;
     }
 
-    public void setCustomerTel(String customerTel) {
-        this.customerTel = customerTel;
-    }
-
     public int getPrice() {
         return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public String getDate() {

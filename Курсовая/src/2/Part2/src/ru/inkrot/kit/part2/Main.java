@@ -20,7 +20,7 @@ public class Main extends JFrame {
     }
 
     private void createUI() {
-        setTitle("Информация об обуви");
+        setTitle("Часть 2. Зарипов Ислам - 4441");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(550, 400);
         setLocationRelativeTo(null);

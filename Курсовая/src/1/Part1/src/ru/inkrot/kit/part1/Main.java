@@ -2,13 +2,7 @@ package ru.inkrot.kit.part1;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.PlainDocument;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.text.NumberFormat;
 
 public class Main extends JFrame {
@@ -17,15 +11,12 @@ public class Main extends JFrame {
     private JTextField xStartField, xEndField, nMaxField, bField;
     private JButton apply;
     private ChartsPanel chartsPanel;
-
     private Font font = new Font("Arial", 0, 16);
 
-    private Dimension screenSize;
-
     Main() {
+        setTitle("Часть 1. Зарипов Ислам - 4441");
         setSize(900, 800);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(null);
@@ -111,7 +102,8 @@ public class Main extends JFrame {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        chartsPanel.setSize(Main.this.getWidth() - 22, Main.this.getHeight() - 56);
+        //chartsPanel.setSize(Main.this.getWidth() - 22, Main.this.getHeight() - 56);
+        chartsPanel.setSize(Main.this.getWidth() - 16, Main.this.getHeight() - 38);
     }
 
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
@@ -121,8 +113,8 @@ public class Main extends JFrame {
 
     class ChartsPanel extends JPanel {
 
-        int xStart = -8;
-        int xEnd = 8;
+        int xStart = -5;
+        int xEnd = 5;
         int nMax = 100;
         int b = 1;
         int sc = 100;
