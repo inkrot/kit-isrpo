@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b7c46b3e-4afc-4809-a706-005bb9322037" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../laba3/laba31.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laba3/src/resources/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../laba3/src/resources/log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../laba5/Отчет л.р. 5.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../laba5/Отчет л.р. 5.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Курсовая/src/3/Part3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Курсовая/src/3/Part3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Курсовая/src/3/Part3/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/../Курсовая/src/3/Part3/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Курсовая/src/3/Part3database.s3db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Курсовая/Пояснительная записка.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../Курсовая/Пояснительная записка.docx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -82,14 +83,14 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="gitignore" value="1" />
-          <entry key="java" value="16" />
+          <entry key="java" value="18" />
           <entry key="txt" value="1" />
           <entry key="xml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="16" />
+          <entry key="JAVA" value="18" />
           <entry key="PLAIN_TEXT" value="2" />
           <entry key="XML" value="2" />
         </counts>
@@ -108,14 +109,15 @@
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="2" />
-          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.6" value="2" />
+          <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
     </session>
@@ -183,8 +185,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -212,6 +212,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -280,16 +282,18 @@
       <workItem from="1571428062052" duration="364000" />
       <workItem from="1571462446509" duration="97000" />
       <workItem from="1571731530980" duration="21000" />
+      <workItem from="1572601777825" duration="151000" />
+      <workItem from="1572602476966" duration="38000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17889000" />
+    <option name="totallyTimeSpent" value="18078000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2145749" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22186235" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -381,24 +385,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/inkrot/kit/laba4/DemoFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-24">
-          <caret line="50" column="19" lean-forward="true" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/inkrot/kit/laba4/FioObject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-694">
           <caret line="110" selection-start-line="110" selection-end-line="110" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/inkrot/kit/laba4/ControlFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="209" column="21" lean-forward="true" selection-start-line="209" selection-start-column="21" selection-end-line="209" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -411,6 +401,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/task.txt">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/inkrot/kit/laba4/ControlFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="209" column="21" selection-start-line="209" selection-start-column="21" selection-end-line="209" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/inkrot/kit/laba4/DemoFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-412">
+          <caret line="67" column="16" lean-forward="true" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
