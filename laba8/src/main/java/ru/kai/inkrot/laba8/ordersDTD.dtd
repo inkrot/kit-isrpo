@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT order (agreements,direction+)>
+<!ATTLIST order
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT agreements (agreement)+>
+<!ATTLIST agreements
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT direction (groups)>
+<!ATTLIST direction
+  xmlns CDATA #FIXED ''
+  code NMTOKEN #REQUIRED
+  name CDATA #REQUIRED>
+
+<!ELEMENT agreement (name,date)>
+<!ATTLIST agreement
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT groups (group)>
+<!ATTLIST groups
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT date (#PCDATA)>
+<!ATTLIST date
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT group (student)+>
+<!ATTLIST group
+  xmlns CDATA #FIXED ''
+  number CDATA #REQUIRED>
+
+<!ELEMENT student (number,name,type)>
+<!ATTLIST student
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT number (#PCDATA)>
+<!ATTLIST number
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT type (#PCDATA)>
+<!ATTLIST type
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT name (#PCDATA)>
+<!ATTLIST name
+  xmlns CDATA #FIXED ''>
